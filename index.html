@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>零售客户分群系统 · 项目演示</title>
+  <link rel="stylesheet" href="./assets/app.css">
+  <script defer src="./assets/vendor/echarts.min.js"></script>
+  <script defer src="./assets/pages-adapter.js"></script>
+  <script defer src="./assets/app.js"></script>
+<link rel="stylesheet" href="./assets/pages.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-mark">R<span>FM</span></span><span>零售客户分群<small>RETAIL CUSTOMER ANALYTICS</small></span></a>
+  <div class="nav-label">分析工作台</div>
+  <nav aria-label="主导航">
+    <a href="#overview" data-nav="overview"><span class="nav-icon">▥</span>销售概览</a>
+    <a href="#segments" data-nav="segments"><span class="nav-icon">◈</span>RFM分群</a>
+    <a href="#customers" data-nav="customers"><span class="nav-icon">⌕</span>客户查询</a>
+    <a href="#data" data-nav="data"><span class="nav-icon">⇅</span>数据管理</a>
+  </nav>
+  <div class="sidebar-note"><span class="eyebrow">研究案例</span><p>自编交易演示数据</p><small>客户价值分析 · 规则分群<br>浏览器演示 / 不含真实客户数据</small></div>
+  <div id="health" class="health"><span class="status-dot"></span>正在连接数据库</div>
+</aside>
+<main>
+  <header class="topbar"><span>基于RFM模型的零售客户分群系统实现</span><span class="local-tag">项目交互演示</span></header>
+  <div class="content"><section class="demo-intro" aria-label="项目演示说明"><div><span class="eyebrow">PROJECT DEMO</span><h2>从零售交易中识别客户价值</h2><p>体验销售概览、RFM规则分群、客户查询与CSV导出。<strong>当前为自编数据演示，非论文研究样本。</strong></p><small>完整系统：Python / pandas / Flask / MySQL / ECharts。此网页展示离线计算结果，不在线执行上传分析。</small></div><a class="button secondary" href="https://github.com/BlazyZ/rfm-segmentation" target="_blank" rel="noopener noreferrer">查看项目代码 ↗</a></section>
+    <div class="page-heading"><div><div class="eyebrow" id="page-eyebrow">BUSINESS OVERVIEW</div><h1 id="page-title">销售概览</h1><p id="page-description">从交易明细到客户价值，查看当前批次的实际分析结果。</p></div><a class="button secondary" href="#data">演示数据与处理说明 <span>↗</span></a></div>
+    <div class="scope-bar"><div><span class="scope-dot"></span><strong id="scope-period">尚未完成数据分析</strong><span id="scope-reference"></span></div><span id="scope-batch">等待导入</span></div>
+    <div id="global-error" class="notice error" role="alert" hidden></div>
+    <div id="no-data" class="empty panel" hidden><div class="empty-symbol">⇅</div><h2>先导入一份交易数据</h2><p>使用项目中的百货商场原始CSV，或上传相同结构的CSV / Excel交易文件。</p><a class="button primary" href="#data">前往数据管理</a></div>
+
+    <section id="page-overview" class="page" aria-label="销售概览">
+      <div class="section-tools"><span class="subtle">以下为自编交易的正向购买统计，仅用于体验项目功能</span><form id="sales-filter" class="inline-form"><label>开始 <input id="sales-start" type="date" required></label><label>结束（不含） <input id="sales-end" type="date" required></label><button class="button secondary" type="submit">筛选</button><button id="sales-reset" class="button quiet" type="button">重置</button></form></div>
+      <div class="metric-grid" id="overview-metrics">
+        <article class="metric"><div>正向购买金额 <span>¥</span></div><strong id="metric-amount">—</strong><small>有效商品明细的je之和 · 元</small></article>
+        <article class="metric"><div>购买事件数 <span>↗</span></div><strong id="metric-events">—</strong><small>客户＋时间＋收银机＋单据号</small></article>
+        <article class="metric"><div>客户标识数 <span>◉</span></div><strong id="metric-customers">—</strong><small>当前范围内的不同客户标识</small></article>
+        <article class="metric"><div>商品购买明细 <span>≡</span></div><strong id="metric-lines">—</strong><small id="metric-aov">每次购买事件平均金额：—</small></article>
+      </div>
+      <div class="chart-grid"><article class="panel chart-wide"><div class="panel-heading"><div><h2>月度购买趋势</h2><p>正向购买金额与购买事件数</p></div><span class="badge">观察窗口内</span></div><div id="chart-trend" class="chart" role="img" aria-label="月度购买趋势图"></div><p class="chart-note" id="sales-range-note"></p></article><article class="panel"><div class="panel-heading"><div><h2>柜组金额分布</h2><p>按正向购买金额排序 · 前10名</p></div></div><div id="chart-counters" class="chart" role="img" aria-label="柜组金额排行"></div></article></div>
+      <article class="panel"><div class="panel-heading"><div><h2>商品金额排行</h2><p>按商品编码汇总，显示前10名；金额使用je</p></div><span class="subtle">单位：元</span></div><div class="table-wrap"><table><thead><tr><th>排名</th><th>商品编码</th><th>商品名称</th><th class="number">商品明细数</th><th class="number">正向购买金额</th></tr></thead><tbody id="products-body"><tr><td colspan="5" class="empty-cell">正在加载</td></tr></tbody></table></div></article>
+    </section>
+
+    <section id="page-segments" class="page" hidden aria-label="RFM分群">
+      <div class="metric-grid three"><article class="metric"><div>已分群客户标识</div><strong id="segment-total">—</strong><small>每位客户有且仅有一个分群</small></article><article class="metric"><div>重要价值客户占比</div><strong id="segment-vip">—</strong><small>R、F、M评分均达到高档</small></article><article class="metric"><div>评分与群体规则</div><strong class="metric-text">五档评分 · 八类分群</strong><small>经验分位数；单项评分≥4为高档</small></article></div>
+      <div class="chart-grid"><article class="panel"><div class="panel-heading"><div><h2>群体人数构成</h2><p>不同客户标识数</p></div></div><div id="chart-segments" class="chart" role="img" aria-label="客户分群人数构成"></div></article><article class="panel chart-wide"><div class="panel-heading"><div><h2>群体金额贡献</h2><p>各分群有效je之和 · 元</p></div></div><div id="chart-contribution" class="chart" role="img" aria-label="各分群金额贡献"></div></article></div>
+      <article class="panel"><div class="panel-heading"><div><h2>群体特征对比</h2><p>点击群体名称查看对应客户；R越小表示购买越近期</p></div></div><div class="table-wrap"><table><thead><tr><th>客户群体</th><th>R / F / M高低</th><th class="number">客户数</th><th class="number">人数占比</th><th class="number">金额占比</th><th class="number">平均R / 天</th><th class="number">平均F / 次</th><th class="number">平均M / 元</th></tr></thead><tbody id="segments-body"></tbody></table></div></article>
+      <article class="panel rule-panel"><div class="panel-heading"><div><h2>本批次计算与评分规则</h2><p>规则随批次保存，重复阈值允许出现空分档，同值始终同分</p></div><span class="badge">rfm-v1</span></div><div class="definition-grid"><p><b>R · 最近购买间隔</b><span>基准日与客户最后一次有效购买日期之差，按自然日计算。</span></p><p><b>F · 购买频次</b><span>不同“客户＋完整交易时间＋收银机＋单据号”的组合数。</span></p><p><b>M · 正向购买金额</b><span>有效je之和；保留折扣影响，未扣除被排除的退款。</span></p></div><div class="table-wrap"><table><thead><tr><th>指标</th><th>20%分位数</th><th>40%分位数</th><th>60%分位数</th><th>80%分位数</th><th>评分方向</th></tr></thead><tbody id="rules-body"></tbody></table></div><p class="panel-note">以数值≤阈值划分区间：F、M从低到高计1—5分，R反向计5—1分。单项评分≥4为高档，其他为低档。标签用于历史规则分群，不表示预测结果或经验证的营销效果。</p></article>
+    </section>
+
+    <section id="page-customers" class="page" hidden aria-label="客户查询">
+      <article class="panel"><form id="customer-filter" class="filter-form"><label class="grow">客户标识<input id="customer-kh" type="search" placeholder="输入完整或部分客户标识" maxlength="8" pattern="[0-9a-fA-F]{1,8}"></label><label>客户群体<select id="customer-segment"><option value="">全部群体</option></select></label><label>排序方式<select id="customer-sort"><option value="m">金额从高到低</option><option value="f">购买事件从多到少</option><option value="r">购买时间从近到远</option><option value="kh">客户标识升序</option></select></label><button class="button primary" type="submit">查询客户</button><button class="button secondary" id="customer-reset" type="button">重置</button></form></article>
+      <article class="panel"><div class="panel-heading"><div><h2>客户RFM结果 <span id="customer-count" class="count-label"></span></h2><p>导出当前筛选下的全部客户，包含分析日期与批次</p></div><div class="button-group"><button class="button secondary export-btn" data-format="csv">导出CSV ↓</button></div></div><div class="table-wrap"><table><thead><tr><th>客户标识</th><th class="number">R / 天</th><th class="number">F / 次</th><th class="number">M / 元</th><th class="number">商品明细</th><th>R / F / M评分</th><th>客户分群</th><th>操作</th></tr></thead><tbody id="customers-body"></tbody></table></div><div class="pagination"><span id="page-info"></span><div><button class="button secondary" id="prev-page">上一页</button><button class="button secondary" id="next-page">下一页</button></div></div></article>
+    </section>
+
+    <section id="page-data" class="page" hidden aria-label="数据管理">
+      <div class="data-grid"><article class="panel"><div class="panel-heading"><div><h2>从交易明细到客户分群</h2><p>完整本机系统支持导入、清洗、计算和数据库保存</p></div><span class="badge">项目流程</span></div><div class="demo-flow"><p><b>读取交易 → 清洗审计 → RFM计算 → 规则评分 → 八类分群 → 查询与导出</b></p><p>R：距离最近一次购买的自然日数。<br>F：客户＋完整时间＋收银机＋单据号的不同组合数。<br>M：有效je之和，以整数分累计。</p><p>本网页可体验筛选、排序、分页、明细追查和CSV导出。文件上传、重新分析、Excel导出及MySQL写入在完整本机系统中运行。</p><a class="table-link" href="https://github.com/BlazyZ/rfm-segmentation#readme" target="_blank" rel="noopener noreferrer">查看完整系统说明 ↗</a></div><form id="import-form" class="import-form"><label>数据来源<select id="import-source"><option value="builtin">项目内置原始交易CSV（全量核查）</option><option value="upload">上传同结构交易文件</option><option value="previous">使用当前批次原文件重新分析</option></select></label><label id="upload-label" hidden>选择交易文件<input id="import-file" type="file" accept=".csv,.xlsx"><small>最大300MB；仅支持约定的12字段交易表，不支持会员信息表。</small></label><div class="date-grid"><label>窗口开始（含）<input id="import-start" type="date" value="2017-01-01" required></label><label>窗口结束（不含）<input id="import-end" type="date" value="2018-01-01" required></label><label>分析基准日<input id="import-reference" type="date" value="2018-01-01" required></label></div><div class="notice info">第一版默认分析2017年。相同文件、日期与规则直接复用结果，不会重复叠加；新任务失败时保留上一成功批次。</div><button id="import-submit" class="button primary" type="submit">开始导入与分析 <span>→</span></button><div id="job-status" class="job-status" role="status" hidden></div></form></article><article class="panel data-note"><div class="panel-heading"><div><h2>数据与处理口径</h2><p>自编交易样本 · 非论文研究数据</p></div></div><ol><li>校验全部12个字段及日期，筛选观察窗口内交易。</li><li>仅保留8位十六进制客户标识、4位十六进制单据标识，收银机标识不能为空。</li><li>数量与je均须为正；金额按分汇总，异常数据隔离并注明原因。</li><li>保留完全相同行和极端正向金额，不猜测修复异常标识。</li></ol><p>本页客户、商品与交易均为程序生成，仅用于公开演示。完整系统使用的论文案例为cumcm2018c公开教学副本，来源与限制见代码仓库。</p><details><summary>查看必要字段</summary><code>kh, dtime, spbm, sl, sj, je, spmc, jf, syjh, djh, gzbm, gzmc</code><p>CSV支持UTF-8、GB18030；Excel须恰有一张包含全部字段的交易表。标识应保存为文本。</p></details></article></div>
+      <article class="panel"><div class="panel-heading"><div><h2>当前批次质量报告</h2><p id="quality-caption">分析完成后展示</p></div><div class="button-group" id="quality-downloads"></div></div><div class="quality-metrics" id="quality-metrics"></div><div class="table-wrap"><table><thead><tr><th>排除原因</th><th class="number">命中行数（可重叠）</th><th class="number">首要原因行数（互斥）</th></tr></thead><tbody id="quality-body"></tbody></table></div><p class="panel-note" id="quality-note">同一行可命中多个原因；首要原因按表中顺序确定，互斥计数之和等于排除总数。</p></article>
+      <article class="panel"><div class="panel-heading"><div><h2>分析批次记录</h2><p>此网页展示一个已离线计算的自编数据批次</p></div><button class="button secondary" id="refresh-batches">刷新记录</button></div><div class="table-wrap"><table><thead><tr><th>批次 / 文件</th><th>观察窗口</th><th>基准日</th><th>状态</th><th>创建时间</th><th class="number">耗时 / 秒</th><th>操作</th></tr></thead><tbody id="batches-body"></tbody></table></div></article>
+    </section>
+    <footer>RFM零售客户分群系统 <span>自编数据经项目Python代码计算 · 网页演示不运行MySQL</span></footer>
+  </div>
+</main>
+<dialog id="customer-dialog"><div class="dialog-heading"><div><span class="eyebrow">CUSTOMER PROFILE</span><h2 id="detail-title">客户详情</h2></div><button class="icon-button" id="close-dialog" aria-label="关闭详情">×</button></div><div id="detail-content"></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

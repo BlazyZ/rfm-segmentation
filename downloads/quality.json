@@ -1,0 +1,356 @@
+{
+  "start": "2017-01-01",
+  "end": "2018-01-01",
+  "reference": "2018-01-01",
+  "detail_count": 1554,
+  "customer_count": 160,
+  "event_count": 780,
+  "amount_cents": 261545038,
+  "days_with_purchases": 288,
+  "monthly": [
+    {
+      "month": "2017-01",
+      "amount_cents": 31849264,
+      "details": 278,
+      "events": 142
+    },
+    {
+      "month": "2017-02",
+      "amount_cents": 35137107,
+      "details": 205,
+      "events": 108
+    },
+    {
+      "month": "2017-03",
+      "amount_cents": 29226641,
+      "details": 193,
+      "events": 95
+    },
+    {
+      "month": "2017-04",
+      "amount_cents": 21353051,
+      "details": 155,
+      "events": 74
+    },
+    {
+      "month": "2017-05",
+      "amount_cents": 30384094,
+      "details": 151,
+      "events": 76
+    },
+    {
+      "month": "2017-06",
+      "amount_cents": 22522953,
+      "details": 112,
+      "events": 55
+    },
+    {
+      "month": "2017-07",
+      "amount_cents": 15769023,
+      "details": 99,
+      "events": 55
+    },
+    {
+      "month": "2017-08",
+      "amount_cents": 19234660,
+      "details": 108,
+      "events": 53
+    },
+    {
+      "month": "2017-09",
+      "amount_cents": 18923409,
+      "details": 101,
+      "events": 49
+    },
+    {
+      "month": "2017-10",
+      "amount_cents": 19552596,
+      "details": 82,
+      "events": 39
+    },
+    {
+      "month": "2017-11",
+      "amount_cents": 10148194,
+      "details": 40,
+      "events": 19
+    },
+    {
+      "month": "2017-12",
+      "amount_cents": 7444046,
+      "details": 30,
+      "events": 15
+    }
+  ],
+  "products": [
+    {
+      "name": "DEMO-009",
+      "amount_cents": 26131886,
+      "details": 153
+    },
+    {
+      "name": "DEMO-011",
+      "amount_cents": 25057684,
+      "details": 128
+    },
+    {
+      "name": "DEMO-012",
+      "amount_cents": 24218212,
+      "details": 135
+    },
+    {
+      "name": "DEMO-004",
+      "amount_cents": 23583325,
+      "details": 147
+    },
+    {
+      "name": "DEMO-005",
+      "amount_cents": 22441370,
+      "details": 129
+    },
+    {
+      "name": "DEMO-002",
+      "amount_cents": 21890826,
+      "details": 125
+    },
+    {
+      "name": "DEMO-003",
+      "amount_cents": 21747526,
+      "details": 122
+    },
+    {
+      "name": "DEMO-007",
+      "amount_cents": 20527981,
+      "details": 119
+    },
+    {
+      "name": "DEMO-008",
+      "amount_cents": 20115598,
+      "details": 129
+    },
+    {
+      "name": "DEMO-010",
+      "amount_cents": 19246825,
+      "details": 136
+    }
+  ],
+  "counters": [
+    {
+      "name": "演示食品",
+      "amount_cents": 67917135,
+      "details": 411
+    },
+    {
+      "name": "演示数码",
+      "amount_cents": 67333191,
+      "details": 369
+    },
+    {
+      "name": "演示服饰",
+      "amount_cents": 66919387,
+      "details": 409
+    },
+    {
+      "name": "演示家居",
+      "amount_cents": 59375325,
+      "details": 365
+    }
+  ],
+  "segments": [
+    {
+      "code": "111",
+      "name": "重要价值客户",
+      "customers": 18,
+      "amount_cents": 93627538,
+      "avg_r": 56.72,
+      "avg_f": 10.22,
+      "avg_m_cents": 5201529.89
+    },
+    {
+      "code": "101",
+      "name": "重要发展客户",
+      "customers": 10,
+      "amount_cents": 21622108,
+      "avg_r": 55.3,
+      "avg_f": 3.1,
+      "avg_m_cents": 2162210.8
+    },
+    {
+      "code": "011",
+      "name": "重要保持客户",
+      "customers": 21,
+      "amount_cents": 96526168,
+      "avg_r": 210.57,
+      "avg_f": 10.1,
+      "avg_m_cents": 4596484.19
+    },
+    {
+      "code": "001",
+      "name": "重要挽留客户",
+      "customers": 15,
+      "amount_cents": 28010215,
+      "avg_r": 223.53,
+      "avg_f": 2.73,
+      "avg_m_cents": 1867347.67
+    },
+    {
+      "code": "110",
+      "name": "一般价值客户",
+      "customers": 7,
+      "amount_cents": 3548914,
+      "avg_r": 88.57,
+      "avg_f": 10.29,
+      "avg_m_cents": 506987.71
+    },
+    {
+      "code": "100",
+      "name": "一般发展客户",
+      "customers": 29,
+      "amount_cents": 5870029,
+      "avg_r": 69.72,
+      "avg_f": 1.97,
+      "avg_m_cents": 202414.79
+    },
+    {
+      "code": "010",
+      "name": "一般保持客户",
+      "customers": 8,
+      "amount_cents": 2805773,
+      "avg_r": 236.75,
+      "avg_f": 9.0,
+      "avg_m_cents": 350721.62
+    },
+    {
+      "code": "000",
+      "name": "一般挽留客户",
+      "customers": 52,
+      "amount_cents": 9534293,
+      "avg_r": 231.13,
+      "avg_f": 2.13,
+      "avg_m_cents": 183351.79
+    }
+  ],
+  "rules": {
+    "method": "五档经验分位数；值等于阈值归入数值较低档；同值同分",
+    "high_score": 4,
+    "quantiles": [
+      0.2,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "boundaries": {
+      "r": [
+        68.6,
+        116.00000000000001,
+        170.59999999999997,
+        262.0
+      ],
+      "f": [
+        1.0,
+        2.0,
+        5.0,
+        8.0
+      ],
+      "m_cents": [
+        89311.8,
+        268527.8,
+        755363.7999999988,
+        2159161.0
+      ]
+    },
+    "event_key": [
+      "kh",
+      "dtime",
+      "syjh",
+      "djh"
+    ],
+    "segment_map": {
+      "111": "重要价值客户",
+      "101": "重要发展客户",
+      "011": "重要保持客户",
+      "001": "重要挽留客户",
+      "110": "一般价值客户",
+      "100": "一般发展客户",
+      "010": "一般保持客户",
+      "000": "一般挽留客户"
+    },
+    "reference_date": "2018-01-01",
+    "version": "rfm-v1"
+  },
+  "quality": {
+    "total_rows": 1554,
+    "accepted_rows": 1554,
+    "excluded_rows": 0,
+    "reasons": {
+      "invalid_time": 0,
+      "outside_window": 0,
+      "missing_customer": 0,
+      "invalid_customer": 0,
+      "invalid_receipt": 0,
+      "missing_register": 0,
+      "invalid_quantity": 0,
+      "invalid_amount": 0
+    },
+    "primary_reasons": {
+      "invalid_time": 0,
+      "outside_window": 0,
+      "missing_customer": 0,
+      "invalid_customer": 0,
+      "invalid_receipt": 0,
+      "missing_register": 0,
+      "invalid_quantity": 0,
+      "invalid_amount": 0
+    },
+    "reason_labels": {
+      "invalid_time": "无效交易时间",
+      "outside_window": "观察窗口外",
+      "missing_customer": "缺少客户标识",
+      "invalid_customer": "客户标识不符8位十六进制",
+      "invalid_receipt": "单据标识不符4位十六进制",
+      "missing_register": "缺少收银机标识",
+      "invalid_quantity": "数量无效或非正",
+      "invalid_amount": "金额无效、非正、超过范围或小数超过两位"
+    },
+    "duplicates_removed": 0,
+    "exact_duplicate_candidates": 0,
+    "duplicate_policy": "保留完全相同行；缺少唯一明细ID，不能证明相同行就是错误。",
+    "event_audit": {
+      "purchase_events": 780,
+      "distinct_receipt_ids": 780,
+      "customer_date_register_receipt_groups": 780,
+      "groups_with_multiple_timestamps": 0,
+      "repeated_receipt_ids": 0,
+      "customers_with_multiple_events": 113
+    }
+  },
+  "distribution": {
+    "r": {
+      "0": 1.0,
+      "0.2": 68.6,
+      "0.4": 116.00000000000001,
+      "0.5": 147.0,
+      "0.6": 170.59999999999997,
+      "0.8": 262.0,
+      "1": 352.0
+    },
+    "f": {
+      "0": 1.0,
+      "0.2": 1.0,
+      "0.4": 2.0,
+      "0.5": 3.0,
+      "0.6": 5.0,
+      "0.8": 8.0,
+      "1": 12.0
+    },
+    "m_cents": {
+      "0": 8378.0,
+      "0.2": 89311.8,
+      "0.4": 268527.8,
+      "0.5": 467549.0,
+      "0.6": 755363.7999999988,
+      "0.8": 2159161.0,
+      "1": 14144194.0
+    }
+  },
+  "data_notice": "客户、商品及交易均为自编数据，不是论文研究样本。"
+}
